@@ -43,11 +43,174 @@
 
 
     <section>
-        <article><h1>Documentation for D3 Visualization Scatter Plot Chart.</h1>
-<h2>Functional Programming concepts are used.</h2>
-<p>This is documentation for scatter plot chart project and uses D3.js - Data-Driven Documents.
-Various functional programming concepts are used like currying function.</p></article>
-    </section>
+        <article><h1>D3.js Scatter Plot</h1>
+<p>This D3.js Scatter Plot is part of <a href="https://github.com/yadavanuj1996/D3.js-Charts">D3.js-Charts</a> Github project.
+This documentation contains implementation of scatter plot(interactive data visualization) using <strong>D3.js</strong> library
+.<strong>D3.js</strong> is a JavaScript library for manipulating documents based on data. <strong>D3</strong> helps you bring data to life using HTML, SVG, and CSS.</p>
+<p>The Code Pen of chart can also be accessed and forked at: <a href="https://codepen.io/yadavanuj1996/pen/PMQEeW">Scatter Plot</a></p>
+<p>The Data Source used for the chart can be accessed at: <a href="https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json">Data Source</a></p>
+<p><img src="https://i.ibb.co/4ZxkPBX/2.png" alt="alt text"></p>
+<h2>Code Implementation</h2>
+<p>index.html</p>
+<pre class="prettyprint source lang-bash"><code>&lt;!Doctype html>
+&lt;html lang=&quot;en-US&quot;>
+
+&lt;head>
+  &lt;title>Scatter Plot&lt;/title>
+  &lt;meta charset=&quot;utf-8&quot;>
+  &lt;meta name=&quot;author&quot; content=&quot;Anuj Yadav&quot;>
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;>
+  &lt;meta name=&quot;description&quot; content=&quot;Solution for scatterplot for freecodecamp project, this uses 
+	d3 library for charting purpose&quot;>
+  &lt;script src=&quot;https://d3js.org/d3.v5.min.js&quot;>&lt;/script>
+  &lt;script src=&quot;./script.babel&quot;>&lt;/script>
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;./style.css&quot;>
+&lt;/head>
+&lt;body>
+  &lt;h1 id=&quot;title&quot;>Doping in Professional Bicycle Racing&lt;/h1>
+&lt;/body>
+
+&lt;/html>
+</code></pre>
+<p>style.css</p>
+<pre class="prettyprint source lang-bash"><code>h1{
+  text-align: center;
+}
+#tooltip{
+  position: absolute;
+  background-color: #e36f1c !important;
+  color: white;
+  font-size: 15px;
+  max-width: 200px;
+  border-radius: 2%;
+  padding: 5px;
+  border: 1px solid gray;
+	border-radius: 2px;
+	background-color: tan;
+}
+
+svg {
+	border: 1px solid gray;
+	position: relative;
+}
+
+#legend{
+  position:absolute;
+}
+</code></pre>
+<section>
+
+<header>
+    
+        <h2>script.babel</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Scatter Plot implementation for comapring international professional cyclists across 
+ several years and with information about the doping allegations on them, the scatter plot is created 
+ using D3.js library.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Anuj Yadav</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="D__script.babel.html">script.babel</a>, <a href="D__script.babel.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>Access Source Data <a href="https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json">Datasource</a></li>
+        
+            <li>Other Charts <a href="https://github.com/yadavanuj1996/D3.js-Charts">Other D3.js-Charts</a></li>
+        
+            <li>Cod Pen <a href="https://codepen.io/yadavanuj1996/pen/PMQEeW">Codpen</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+<h2>License</h2>
+<p>Copyright (c) 2019 by Anuj Yadav.Licensed under <a href="https://choosealicense.com/licenses/mit/">MIT</a> License.</p>
+
+</article>
+ </section>
 
 
 
@@ -57,13 +220,13 @@ Various functional programming concepts are used like currying function.</p></ar
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-XMLHttpRequest.html">XMLHttpRequest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCirclesInSvg">addCirclesInSvg</a></li><li><a href="global.html#addLabelsOnCircles">addLabelsOnCircles</a></li><li><a href="global.html#getChartHeight">getChartHeight</a></li><li><a href="global.html#getChartPadding">getChartPadding</a></li><li><a href="global.html#getChartWidth">getChartWidth</a></li><li><a href="global.html#getParsedData">getParsedData</a></li><li><a href="global.html#loadDopingChart">loadDopingChart</a></li><li><a href="global.html#loadSvg">loadSvg</a></li><li><a href="global.html#loadXAxis">loadXAxis</a></li><li><a href="global.html#loadYAxis">loadYAxis</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-XMLHttpRequest.html">XMLHttpRequest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCirclesInSvg">addCirclesInSvg</a></li><li><a href="global.html#addLabelsOnCircles">addLabelsOnCircles</a></li><li><a href="global.html#DOMContentLoadedFunction">DOMContentLoadedFunction</a></li><li><a href="global.html#getChartHeight">getChartHeight</a></li><li><a href="global.html#getChartPadding">getChartPadding</a></li><li><a href="global.html#getChartWidth">getChartWidth</a></li><li><a href="global.html#getCustomLegend">getCustomLegend</a></li><li><a href="global.html#getCyclistData">getCyclistData</a></li><li><a href="global.html#getParsedData">getParsedData</a></li><li><a href="global.html#getTooltip">getTooltip</a></li><li><a href="global.html#loadDopingChart">loadDopingChart</a></li><li><a href="global.html#loadSvg">loadSvg</a></li><li><a href="global.html#loadXAxis">loadXAxis</a></li><li><a href="global.html#loadYAxis">loadYAxis</a></li><li><a href="global.html#xScale">xScale</a></li><li><a href="global.html#yScale">yScale</a></li><li><a href="global.html#ySecondsScale">ySecondsScale</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Aug 14 2019 14:07:37 GMT+0530 (India Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Aug 22 2019 09:35:46 GMT+0530 (India Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

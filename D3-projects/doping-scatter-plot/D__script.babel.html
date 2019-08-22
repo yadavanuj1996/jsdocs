@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: script.js</title>
+    <title>JSDoc: Source: script.babel</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: script.js</h1>
+    <h1 class="page-title">Source: script.babel</h1>
 
     
 
@@ -27,20 +27,30 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/** 
-*  @author Anuj Yadav &lt;yadav.anuj.1996@gmail.com>
+*  @fileOverview Scatter Plot implementation for comapring international professional cyclists across 
+*  several years and with information about the doping allegations on them, the scatter plot is created 
+*  using D3.js library.
+*  @author Anuj Yadav
+*  @see Access Source Data {@link https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json|Datasource} 
+*  @see Other Charts {@link https://github.com/yadavanuj1996/D3.js-Charts">D3.js-Charts|Other D3.js-Charts}
+*  @see Cod Pen {@link https://codepen.io/yadavanuj1996/pen/qBWqbaa|Codpen}
 */
 /** 
-*  This event listener will run on DOM loading and will call the getCyclistsData.
+*  Function listens to DOM loading and will will call getCyclistData function on loading of DOM. 
+*  @function
+*  @name DOMContentLoadedFunction
 *  @listens DOMContentLoaded
 */
 document.addEventListener("DOMContentLoaded",()=>{
   getCyclistData();
 });
 /** 
-*  The function will send ajax request to get cyclist dataset for cyclist data setclick 
-*  {@link https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json|Datasource}
 *  @external XMLHttpRequest
 *  @see https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest 
+*/
+/**
+*  The function will send ajax request to get cyclist dataset, access cyclist data set at 
+*  {@link https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json|Datasource}  
 */
 let getCyclistData= ()=>{
   let ajaxRequest=new XMLHttpRequest();
@@ -64,31 +74,11 @@ let loadDopingChart=(dopingDataset)=>{
   const parsedData=getParsedData(dopingDataset,specifier);
   
   let svg=loadSvg(svgHeight,svgWidth);
-  let legend=d3.select("body")
-      .append("div")
-      .attr("id","legend")
-      .attr("height",100)
-      .attr("width",100)
-      .attr("fill","red")
-      .style("left",`50px`)
-      .style("top", `100px`)
-      .html(`&lt;div style="display:flex;font-size:13px;">
-              &lt;div style="background-color:#5790C2;width:20px;height:20px;">
-              &lt;/div>
-              &lt;div style="padding-left:10px;">Riders with doping allegations&lt;/div>
-             &lt;/div>
-             &lt;div style="display:flex;padding-top:5px;font-size:13px;">
-              &lt;div style="background-color:#FC813F;width:20px;height:20px;">
-              &lt;/div>
-              &lt;div style="padding-left:10px;">No doping allegations&lt;/div>
-             &lt;/div>`);
+  let legend=getCustomLegend();
                    
-  let tooltip=d3.select("body")
-                 .append("div")
-                .attr("id","tooltip")
-                .style("opacity",0);
+  let tooltip=getTooltip();
   
-  let circlesInSvg=addCirclesInSvg(svg,dopingDataset)
+  let circlesInSvg=addCirclesInSvg(svg,dopingDataset);
       circlesInSvg.attr("cx",(d,i)=>xScale(dopingDataset,svgWidth,padding)(new Date(d.Year)))
                   .attr("cy",(d,i)=>yScale(parsedData,svgHeight,padding)(d3.timeParse(specifier)(d.Time)))
                   .attr("r",6)
@@ -126,12 +116,46 @@ const getChartHeight=()=>600;
 const getChartWidth=()=>1200;
 /** Return chart padding.*/
 const getChartPadding=()=>100;
+/** This will return array of Time(MM:SS) format after extracting it from dataset.*/
+const getParsedData=(dataset,specifier)=>{
+  return dataset.map((d)=> {
+      return d3.timeParse(specifier)(d.Time);
+  });
+};
 /** Add svg in body and return it.*/
 const loadSvg=(height,width)=>{
   return d3.select("body")
            .append("svg")
            .attr("height",height)
            .attr("width",width);
+};
+/** Returns custom legend sectin to represent the detail and color use of scatter plot. */
+const getCustomLegend=(legendSvg)=>{
+  return d3.select("body")
+           .append("div")
+           .attr("id","legend")
+           .attr("height",100)
+           .attr("width",100)
+           .attr("fill","red")
+           .style("left",`50px`)
+           .style("top", `100px`)
+           .html(`&lt;div style="display:flex;font-size:13px;">
+                   &lt;div style="background-color:#5790C2;width:20px;height:20px;">
+                   &lt;/div>
+                   &lt;div style="padding-left:10px;">Riders with doping allegations&lt;/div>
+                  &lt;/div>
+                  &lt;div style="display:flex;padding-top:5px;font-size:13px;">
+                   &lt;div style="background-color:#FC813F;width:20px;height:20px;">
+                   &lt;/div>
+                   &lt;div style="padding-left:10px;">No doping allegations&lt;/div>
+                  &lt;/div>`);
+};
+/** Return tooltip to show inforamtion about a point when it is hovered. */
+const getTooltip=()=>{
+  return d3.select("body")
+           .append("div")
+           .attr("id","tooltip")
+           .style("opacity",0);
 };
 /**
 *  This function will add circles equal to number of elements in dataset inside svg.
@@ -169,21 +193,14 @@ const loadYAxis=(svg,yAxis,padding)=>{
       .attr("id","y-axis")
       .call(yAxis);
 };
-/** This will return array of Time(MM:SS) format after extracting it from dataset.*/
-const getParsedData=(dataset,specifier)=>{
-  return dataset.map((d)=> {
-      return d3.timeParse(specifier)(d.Time);
-  });
-};
 /**
  * The Curried Function that will return interpolated value on x axis and will return 
  * function on first call then number value in second
- * @callback xScaleCallback 
+ * @function
  * @param {Array&lt;object>} dataset Dataset of all elements.
- * @param {number} padding Padding for chart inside svg.
- * @param {number} height Height for chart area.
  * @param {number} width Width for chart area.
- * @return {number} The interpolated value on that the point will be represented on chart
+ * @param {number} padding Padding for chart inside svg.
+ * @return {number} The interpolated value on that the point will be represented on chart.
  */
 let xScale=(dataset,width,padding)=>{
   return d3.scaleTime()
@@ -193,7 +210,7 @@ let xScale=(dataset,width,padding)=>{
 /**
  * The Curried Function that will return interpolated value on y axis and return 
  * function in first call then number value in second
- * @callback yScaleCallback 
+ * @function 
  * @param {Array&lt;object>} dataset Dataset of all elements.
  * @param {number} height Height for chart area.
  * @param {number} padding Padding for chart inside svg.
@@ -208,7 +225,7 @@ let yScale=(parsedData,height,padding)=>{
 /**
  * The Curried Function that will return interpolated value on y axis and return 
  * function in first call then number value in second
- * @callback yScaleSecondsCallback 
+ * @function 
  * @param {Array&lt;object>} dataset Dataset of all elements.
  * @param {number} height Height for chart area.
  * @param {number} padding Padding for chart inside svg.
@@ -220,7 +237,6 @@ let ySecondsScale=(dataset,height,padding)=>{
            .range([padding,height-padding]);          
 };
 
-
 </code></pre>
         </article>
     </section>
@@ -231,13 +247,13 @@ let ySecondsScale=(dataset,height,padding)=>{
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-XMLHttpRequest.html">XMLHttpRequest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCirclesInSvg">addCirclesInSvg</a></li><li><a href="global.html#addLabelsOnCircles">addLabelsOnCircles</a></li><li><a href="global.html#getChartHeight">getChartHeight</a></li><li><a href="global.html#getChartPadding">getChartPadding</a></li><li><a href="global.html#getChartWidth">getChartWidth</a></li><li><a href="global.html#getParsedData">getParsedData</a></li><li><a href="global.html#loadDopingChart">loadDopingChart</a></li><li><a href="global.html#loadSvg">loadSvg</a></li><li><a href="global.html#loadXAxis">loadXAxis</a></li><li><a href="global.html#loadYAxis">loadYAxis</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-XMLHttpRequest.html">XMLHttpRequest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCirclesInSvg">addCirclesInSvg</a></li><li><a href="global.html#addLabelsOnCircles">addLabelsOnCircles</a></li><li><a href="global.html#DOMContentLoadedFunction">DOMContentLoadedFunction</a></li><li><a href="global.html#getChartHeight">getChartHeight</a></li><li><a href="global.html#getChartPadding">getChartPadding</a></li><li><a href="global.html#getChartWidth">getChartWidth</a></li><li><a href="global.html#getCustomLegend">getCustomLegend</a></li><li><a href="global.html#getCyclistData">getCyclistData</a></li><li><a href="global.html#getParsedData">getParsedData</a></li><li><a href="global.html#getTooltip">getTooltip</a></li><li><a href="global.html#loadDopingChart">loadDopingChart</a></li><li><a href="global.html#loadSvg">loadSvg</a></li><li><a href="global.html#loadXAxis">loadXAxis</a></li><li><a href="global.html#loadYAxis">loadYAxis</a></li><li><a href="global.html#xScale">xScale</a></li><li><a href="global.html#yScale">yScale</a></li><li><a href="global.html#ySecondsScale">ySecondsScale</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Aug 14 2019 14:07:37 GMT+0530 (India Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Aug 22 2019 09:35:46 GMT+0530 (India Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
